@@ -2,21 +2,20 @@ import { Button } from "react-bootstrap"
 import Card from "react-bootstrap/Card"
 import ListGroup from "react-bootstrap/ListGroup"
 import { useSelector } from "react-redux"
-
+//${import.meta.env.VITE_BASE_URL}
 function Cart() {
-  const products = useSelector((state) => state.cart)
+  const products2 = useSelector((state) => state.cart)
 
-  const total = products.reduce((sum, p) => sum + p.price, 0)
-
+  const total = products2.reduce((sum, p) => sum + p.price, 0)
   async function pay() {
-    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/orders`, {
+    const productArray = products2.map((p) => p._id)
+    const response = await fetch(`http://localhost:3001/api/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(products.map((p) => p._id)),
+      body: JSON.stringify({ products: productArray }),
     })
-
     const data = response.json()
     alert("Orden creada!")
   }
@@ -25,7 +24,7 @@ function Cart() {
     <Card style={{ width: "18rem" }}>
       <Card.Header>Carro de Compras</Card.Header>
       <ListGroup variant="flush">
-        {products.map((product) => (
+        {products2.map((product) => (
           <ListGroup.Item key={product.id} className="d-flex justify-content-between">
             {product.name}
             <span>${product.price}</span>

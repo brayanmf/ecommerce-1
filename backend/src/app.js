@@ -1,10 +1,11 @@
-import "dotenv/config"
-import mongoose from "mongoose"
-import express from "express"
-import cors from "cors"
-import routes from "./routes.js"
+const mongoose = require("mongoose")
+const express = require("express")
+const cors = require("cors")
 
-mongoose.connect(process.env.MONGO_DB_URI || "mongodb://127.0.0.1:27017/ecommerce")
+const routes = require("./routes.js")
+const payment = require("./payment")
+
+mongoose.connect(process.env.MONGO_DB_URI || "mongodb://127.0.0.1:27017/mercadoPago")
 
 const app = express()
 
@@ -18,5 +19,6 @@ app.use(
 app.use(express.json())
 
 app.use("/api", routes)
+app.use("/api/payment", payment)
 
-export default app
+module.exports = app

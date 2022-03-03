@@ -14,6 +14,12 @@ module.exports = {
   plugins: ["react", "prettier"],
   rules: {
     semi: ["error", "never"],
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
   extends: ["plugin:prettier/recommended"],
 }

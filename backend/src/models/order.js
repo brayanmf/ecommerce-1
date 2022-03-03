@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+const mongoose = require("mongoose")
 
 const schema = new mongoose.Schema({
   date: { type: Date, default: () => new Date() },
@@ -13,4 +13,4 @@ const schema = new mongoose.Schema({
   ],
 })
 
-export default mongoose.model("Order", schema)
+module.exports = mongoose.model("Order", schema)

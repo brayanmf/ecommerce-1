@@ -1,9 +1,10 @@
-import express from "express"
-import mongoose from "mongoose"
-import Product from "./models/product.js"
-import Order from "./models/order.js"
+const { Router } = require("express")
+const mongoose = require("mongoose")
 
-const router = express.Router()
+const Product = require("./models/product.js")
+const Order = require("./models/order.js")
+
+const router = Router()
 
 router.get("/products", async (req, res, next) => {
   try {
@@ -34,4 +35,4 @@ router.post("/orders", async (req, res) => {
   res.json(order)
 })
 
-export default router
+module.exports = router

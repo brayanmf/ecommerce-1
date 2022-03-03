@@ -5,14 +5,15 @@ import Row from "react-bootstrap/Row"
 import Product from "../components/Product"
 import Col from "react-bootstrap/Col"
 import Cart from "../components/Cart"
-
+// ${import.meta.env.VITE_BASE_URL}
 function Home() {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
     async function loadProducts() {
-      const result = await fetch(`${import.meta.env.VITE_BASE_URL}/products`)
+      const result = await fetch(`http://localhost:3001/api/products`)
       const data = await result.json()
+      console.log(data)
       setProducts(data)
     }
     loadProducts()
