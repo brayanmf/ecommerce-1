@@ -1,7 +1,6 @@
-const app = require("./src/app.js")
 const dotenv = require("dotenv")
-
-dotenv.config({ path: "./.env" })
+const app = require("./src/app.js")
+dotenv.config()
 
 const PORT = process.env.PORT
 app.listen(PORT, () => console.log(`Running on port ${PORT} ...`))

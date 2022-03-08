@@ -2,14 +2,15 @@ import { Button } from "react-bootstrap"
 import Card from "react-bootstrap/Card"
 import ListGroup from "react-bootstrap/ListGroup"
 import { useSelector } from "react-redux"
-//${import.meta.env.VITE_BASE_URL}
-function Cart() {
-  const products2 = useSelector((state) => state.cart)
+import { useMercadoPago } from "../hook"
 
+function Cart() {
+  const mercadopago = useMercadoPago(import.meta.env.VITE_MERCADOPAGO_KEY)
+  const products2 = useSelector((state) => state.cart)
   const total = products2.reduce((sum, p) => sum + p.price, 0)
   async function pay() {
     const productArray = products2.map((p) => p._id)
-    const response = await fetch(`http://localhost:3001/api/orders`, {
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,6 +18,12 @@ function Cart() {
       body: JSON.stringify({ products: productArray }),
     })
     const data = response.json()
+    const checkout = mercadopago.checkout({
+      preference: {
+        id: data.preferenceId,
+      },
+      autoOpen: true,
+    })
     alert("Orden creada!")
   }
 

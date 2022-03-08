@@ -11,9 +11,8 @@ function Home() {
 
   useEffect(() => {
     async function loadProducts() {
-      const result = await fetch(`http://localhost:3001/api/products`)
+      const result = await fetch(`${import.meta.env.VITE_BASE_URL}/products`)
       const data = await result.json()
-      console.log(data)
       setProducts(data)
     }
     loadProducts()
